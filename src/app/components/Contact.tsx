@@ -39,15 +39,37 @@ export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => { setLoading(false); setSubmitted(true) }, 1000)
+    setError('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to send message.')
+      }
+
+      setSubmitted(true)
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputClass = `
@@ -169,8 +191,13 @@ export function Contact() {
                   className="text-[#6B7280] dark:text-[#8B95A5] max-w-xs"
                   style={{ fontSize: '0.9rem', lineHeight: 1.65 }}
                 >
-                  Thanks for reaching out. I'll get back to you within 24–48 hours.
+                  Thank you for reaching out! Your message has been delivered successfully. I'll respond within 24–48 hours.
                 </p>
+                {error ? (
+                  <p className="text-[#DC2626] dark:text-[#F87171]" style={{ fontSize: '0.875rem' }}>
+                    {error}
+                  </p>
+                ) : null}
                 <button
                   onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: '', message: '' }) }}
                   className="text-[#2563EB] dark:text-[#4F8CFF] hover:text-[#1D4ED8] dark:hover:text-[#76A9FF] transition-colors mt-2"
@@ -204,7 +231,7 @@ export function Contact() {
                   </label>
                   <input type="text" name="subject" value={form.subject} onChange={handleChange}
                     placeholder="e.g. Data Scientist opportunity at Acme"
-                    className={inputClass} style={{ fontSize: '0.9rem' }} />
+                    required className={inputClass} style={{ fontSize: '0.9rem' }} />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
@@ -216,6 +243,14 @@ export function Contact() {
                     required rows={5} className={inputClass}
                     style={{ fontSize: '0.9rem', resize: 'vertical', minHeight: 130 }} />
                 </div>
+
+                <input
+                  type="text"
+                  name="company"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  style={{ display: 'none' }}
+                />
 
                 <button
                   type="submit"
