@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { Github, ExternalLink, Database, Eye, Users, Globe } from 'lucide-react'
 
 interface Project {
-  icon: ComponentType<{ size?: number; className?: string }>
+  icon: ComponentType<{ size?: number | string; className?: string }>
   title: string
   tag: string
   techs: string[]
@@ -23,7 +23,7 @@ const PROJECTS: Project[] = [
       'Performed EDA to identify vaccination trends and regional risk patterns.',
       'Built interactive visualisations and developed a composite COVID risk score.',
     ],
-    github: 'https://github.com/Oreki1107',
+    github: 'https://github.com/Oreki1107/COVID_VACCINATION_DATA_ANALYSIS',
   },
   {
     icon: Eye,
@@ -59,7 +59,7 @@ const PROJECTS: Project[] = [
       'Collaborated directly with the client to translate business requirements into a modern, user-friendly solution.',
       'Integrated enquiry forms, project galleries, and backend services using Supabase with deployment on Vercel.',
     ],
-    github: 'https://github.com/Oreki1107',
+    github: 'https://github.com/Oreki1107/Naveen-landscapes',
     demo: '#',
   },
 ]
@@ -76,7 +76,7 @@ function TechBadge({ label }: { label: string }) {
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const Icon: ComponentType<{ size?: number; className?: string }> = project.icon
+  const Icon: ComponentType<{ size?: number | string; className?: string }> = project.icon
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}

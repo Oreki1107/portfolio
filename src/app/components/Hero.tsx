@@ -6,7 +6,7 @@ import resumeUrl from '../../imports/mohan_resume.pdf?url'
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94], delay },
+  transition: { duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number], delay },
 })
 
 export function Hero() {
@@ -135,7 +135,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.92, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
+            transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number], delay: 0.3 }}
             className="hidden lg:flex items-center justify-center opacity-100 dark:opacity-25"
             style={{ height: 480 }}
           >

@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 
 const FOOTER_LINKS = [
   { label: 'Home',     href: '#home'     },
@@ -41,6 +41,7 @@ export function Footer() {
               {[
                 { icon: Github,   href: 'https://github.com/Oreki1107',            label: 'GitHub'   },
                 { icon: Linkedin, href: 'https://linkedin.com/in/mohan-krishnan-s/', label: 'LinkedIn' },
+                { icon: Twitter,  href: 'https://x.com/mks_2507',                  label: 'Visit my X profile' },
                 { icon: Mail,     href: 'mailto:krishtarry2005@gmail.com',          label: 'Email'    },
               ].map(({ icon: Icon, href, label }) => (
                 <a

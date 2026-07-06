@@ -19,8 +19,11 @@ export default function App() {
         .dark * { -webkit-font-smoothing: antialiased; }
       `}</style>
       <div className="bg-white dark:bg-[#0B0F14] text-[#111827] dark:text-[#F3F4F6] min-h-screen antialiased">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-[#111827] focus:rounded-br-md focus:shadow-md">
+          Skip to main content
+        </a>
         <Navbar />
-        <main>
+        <main id="main-content">
           <Hero />
           <About />
           <Skills />

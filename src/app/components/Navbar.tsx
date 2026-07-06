@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
-import { Github, Linkedin, Sun, Moon, FileText, Menu, X } from 'lucide-react'
+import { Github, Linkedin, Twitter, Sun, Moon, FileText, Menu, X } from 'lucide-react'
 import resumeUrl from '../../imports/mohan_resume.pdf?url'
 
 const NAV_LINKS = [
@@ -103,6 +103,15 @@ export function Navbar() {
           >
             <Linkedin size={17} />
           </a>
+          <a
+            href="https://x.com/mks_2507"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg text-[#4B5563] dark:text-[#8B95A5] hover:text-[#111827] dark:hover:text-[#4F8CFF] hover:bg-[#F8FAFC] dark:hover:bg-white/[0.04] transition-all duration-200"
+            aria-label="Visit my X profile"
+          >
+            <Twitter size={17} />
+          </a>
 
           {mounted && (
             <button
@@ -160,12 +169,19 @@ export function Navbar() {
           ))}
           <div className="mt-3 pt-3 border-t border-[#E5E7EB] dark:border-white/[0.06] flex items-center gap-3">
             <a href="https://github.com/Oreki1107" target="_blank" rel="noopener noreferrer"
+              aria-label="GitHub"
               className="p-2 text-[#4B5563] dark:text-[#8B95A5] hover:text-[#4F8CFF] dark:hover:text-[#4F8CFF]">
               <Github size={17} />
             </a>
             <a href="https://linkedin.com/in/mohan-krishnan-s/" target="_blank" rel="noopener noreferrer"
+              aria-label="LinkedIn"
               className="p-2 text-[#4B5563] dark:text-[#8B95A5] hover:text-[#4F8CFF] dark:hover:text-[#4F8CFF]">
               <Linkedin size={17} />
+            </a>
+            <a href="https://x.com/mks_2507" target="_blank" rel="noopener noreferrer"
+              aria-label="Visit my X profile"
+              className="p-2 text-[#4B5563] dark:text-[#8B95A5] hover:text-[#4F8CFF] dark:hover:text-[#4F8CFF]">
+              <Twitter size={17} />
             </a>
             <a
               href={resumeUrl}

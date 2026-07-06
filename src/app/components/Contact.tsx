@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import { Mail, Linkedin, Github, MapPin, Send, CheckCircle, Phone } from 'lucide-react'
+import { Mail, Linkedin, Twitter, Github, MapPin, Send, CheckCircle, Phone } from 'lucide-react'
 
 const CONTACT_ITEMS = [
   {
@@ -26,6 +26,12 @@ const CONTACT_ITEMS = [
     label: 'GitHub',
     value: 'github.com/Oreki1107',
     href: 'https://github.com/Oreki1107',
+  },
+  {
+    icon: Twitter,
+    label: 'X',
+    value: 'x.com/mks_2507',
+    href: 'https://x.com/mks_2507',
   },
   {
     icon: MapPin,
@@ -210,35 +216,35 @@ export function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
+                    <label htmlFor="name" className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
                       Name
                     </label>
-                    <input type="text" name="name" value={form.name} onChange={handleChange}
+                    <input type="text" id="name" name="name" value={form.name} onChange={handleChange}
                       placeholder="Your name" required className={inputClass} style={{ fontSize: '0.9rem' }} />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
+                    <label htmlFor="email" className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
                       Email
                     </label>
-                    <input type="email" name="email" value={form.email} onChange={handleChange}
+                    <input type="email" id="email" name="email" value={form.email} onChange={handleChange}
                       placeholder="you@company.com" required className={inputClass} style={{ fontSize: '0.9rem' }} />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
+                  <label htmlFor="subject" className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
                     Subject
                   </label>
-                  <input type="text" name="subject" value={form.subject} onChange={handleChange}
+                  <input type="text" id="subject" name="subject" value={form.subject} onChange={handleChange}
                     placeholder="e.g. Data Scientist opportunity at Acme"
                     required className={inputClass} style={{ fontSize: '0.9rem' }} />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
+                  <label htmlFor="message" className="text-[#374151] dark:text-[#B8C1CC]" style={{ fontSize: '0.825rem', fontWeight: 600 }}>
                     Message
                   </label>
-                  <textarea name="message" value={form.message} onChange={handleChange}
+                  <textarea id="message" name="message" value={form.message} onChange={handleChange}
                     placeholder="Tell me about the role or what you'd like to discuss..."
                     required rows={5} className={inputClass}
                     style={{ fontSize: '0.9rem', resize: 'vertical', minHeight: 130 }} />
