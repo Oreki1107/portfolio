@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { ThemeProvider } from 'next-themes'
+import { initializeAnalytics, trackPageView } from '../analytics/ga'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
@@ -9,6 +11,11 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 
 export default function App() {
+  useEffect(() => {
+    initializeAnalytics()
+    trackPageView()
+  }, [])
+
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <style>{`

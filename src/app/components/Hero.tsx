@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { Download, ArrowRight } from 'lucide-react'
+import { trackEvent } from '../../analytics/ga'
 import { AIIllustration } from './AIIllustration'
 import resumeUrl from '../../imports/mohan_resume.pdf?url'
 
@@ -87,6 +88,7 @@ export function Hero() {
               <a
                 href={resumeUrl}
                 download="Mohan_Krishnan_S_Resume.pdf"
+                onClick={() => trackEvent('resume_download')}
                 className="group flex items-center gap-2 bg-[#111827] dark:bg-[#F9FAFB] text-white dark:text-[#0B0F14] rounded-[14px] px-6 py-3 hover:bg-[#1F2937] dark:hover:bg-white transition-all duration-300 hover:shadow-md dark:hover:shadow-[0_8px_28px_rgba(0,0,0,0.45)] hover:-translate-y-0.5 hover:scale-[1.02]"
                 style={{ fontSize: '0.9rem', fontWeight: 600 }}
               >

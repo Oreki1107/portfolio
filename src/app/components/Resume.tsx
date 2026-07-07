@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { Download, FileText, GraduationCap, Briefcase, Award } from 'lucide-react'
+import { trackEvent } from '../../analytics/ga'
 import resumeUrl from '../../imports/mohan_resume.pdf?url'
 
 const HIGHLIGHTS = [
@@ -55,6 +56,7 @@ export function Resume() {
             <a
               href={resumeUrl}
               download="Mohan_Krishnan_S_Resume.pdf"
+              onClick={() => trackEvent('resume_download')}
               className="inline-flex items-center gap-2.5 bg-[#2563EB] dark:bg-[#4F8CFF] text-white px-7 py-3.5 rounded-[14px] hover:bg-[#1D4ED8] dark:hover:bg-[#76A9FF] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-[0_8px_28px_rgba(79,140,255,0.2)] hover:-translate-y-0.5 hover:scale-[1.02]"
               style={{ fontSize: '0.95rem', fontWeight: 600 }}
             >
@@ -122,6 +124,7 @@ export function Resume() {
                 <a
                   href={resumeUrl}
                   download="Mohan_Krishnan_S_Resume.pdf"
+                  onClick={() => trackEvent('resume_download')}
                   className="flex items-center justify-center gap-2 w-full border border-[#E5E7EB] dark:border-white/[0.1] text-[#4B5563] dark:text-[#8B95A5] hover:text-[#2563EB] dark:hover:text-[#4F8CFF] hover:border-[#BFDBFE] dark:hover:border-[#4F8CFF]/[0.3] rounded-[14px] py-2.5 transition-all duration-200 hover:bg-[#F8FAFC] dark:hover:bg-white/[0.02]"
                   style={{ fontSize: '0.875rem', fontWeight: 500 }}
                 >

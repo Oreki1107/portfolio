@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
+import { trackEvent } from '../../analytics/ga'
 
 const FOOTER_LINKS = [
   { label: 'Home',     href: '#home'     },
@@ -39,17 +40,18 @@ export function Footer() {
           <div className="flex flex-col items-start sm:items-end gap-3">
             <div className="flex items-center gap-2">
               {[
-                { icon: Github,   href: 'https://github.com/Oreki1107',            label: 'GitHub'   },
-                { icon: Linkedin, href: 'https://linkedin.com/in/mohan-krishnan-s/', label: 'LinkedIn' },
-                { icon: Twitter,  href: 'https://x.com/mks_2507',                  label: 'Visit my X profile' },
-                { icon: Mail,     href: 'mailto:krishtarry2005@gmail.com',          label: 'Email'    },
-              ].map(({ icon: Icon, href, label }) => (
+                { icon: Github,   href: 'https://github.com/Oreki1107',            label: 'GitHub',   id: 'github_click' },
+                { icon: Linkedin, href: 'https://linkedin.com/in/mohan-krishnan-s/', label: 'LinkedIn', id: 'linkedin_click' },
+                { icon: Twitter,  href: 'https://x.com/mks_2507',                  label: 'Visit my X profile', id: 'x_click' },
+                { icon: Mail,     href: 'mailto:krishtarry2005@gmail.com',          label: 'Email',    id: 'email_click' },
+              ].map(({ icon: Icon, href, label, id }) => (
                 <a
                   key={label}
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   aria-label={label}
+                  onClick={() => trackEvent(id, { location: 'footer' })}
                   className="p-2 rounded-lg text-[#9CA3AF] dark:text-[#8B95A5] hover:text-[#4B5563] dark:hover:text-[#4F8CFF] hover:bg-[#F8FAFC] dark:hover:bg-white/[0.04] transition-all duration-200"
                 >
                   <Icon size={16} />

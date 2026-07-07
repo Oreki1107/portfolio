@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import { Mail, Linkedin, Twitter, Github, MapPin, Send, CheckCircle, Phone } from 'lucide-react'
+import { trackEvent } from '../../analytics/ga'
 
 const CONTACT_ITEMS = [
   {
@@ -8,30 +9,35 @@ const CONTACT_ITEMS = [
     label: 'Email',
     value: 'krishtarry2005@gmail.com',
     href: 'mailto:krishtarry2005@gmail.com',
+    id: 'email_click'
   },
   {
     icon: Phone,
     label: 'Phone',
     value: '+91 78711 47020',
     href: 'tel:+917871147020',
+    id: 'phone_click'
   },
   {
     icon: Linkedin,
     label: 'LinkedIn',
     value: 'linkedin.com/in/mohan-krishnan-s',
     href: 'https://linkedin.com/in/mohan-krishnan-s/',
+    id: 'linkedin_click'
   },
   {
     icon: Github,
     label: 'GitHub',
     value: 'github.com/Oreki1107',
     href: 'https://github.com/Oreki1107',
+    id: 'github_click'
   },
   {
     icon: Twitter,
     label: 'X',
     value: 'x.com/mks_2507',
     href: 'https://x.com/mks_2507',
+    id: 'x_click'
   },
   {
     icon: MapPin,
@@ -70,6 +76,7 @@ export function Contact() {
       }
 
       setSubmitted(true)
+      trackEvent('contact_submit')
       setForm({ name: '', email: '', subject: '', message: '' })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -127,9 +134,9 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="flex flex-col gap-3"
           >
-            {CONTACT_ITEMS.map(({ icon: Icon, label, value, href }, i) => (
+            {CONTACT_ITEMS.map((item, i) => (
               <motion.div
-                key={label}
+                key={item.label}
                 initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -137,31 +144,32 @@ export function Contact() {
                 className="flex items-start gap-4 p-4 bg-white dark:bg-[#161B22] border border-[#E5E7EB] dark:border-white/[0.06] rounded-[18px] hover:border-[#BFDBFE] dark:hover:border-white/[0.1] dark:hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] transition-all duration-300"
               >
                 <div className="w-9 h-9 rounded-xl bg-[#EEF2FF] dark:bg-[#4F8CFF]/[0.08] flex items-center justify-center flex-shrink-0">
-                  <Icon size={15} className="text-[#2563EB] dark:text-[#4F8CFF]" />
+                  <item.icon size={15} className="text-[#2563EB] dark:text-[#4F8CFF]" />
                 </div>
                 <div>
                   <p
                     className="text-[#9CA3AF] dark:text-[#8B95A5] mb-0.5"
                     style={{ fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}
                   >
-                    {label}
+                    {item.label}
                   </p>
-                  {href ? (
+                  {item.href ? (
                     <a
-                      href={href}
-                      target={href.startsWith('http') ? '_blank' : undefined}
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel="noopener noreferrer"
+                      onClick={() => { if (item.id) trackEvent(item.id, { location: 'contact_section' }) }}
                       className="text-[#111827] dark:text-[#B8C1CC] hover:text-[#2563EB] dark:hover:text-[#4F8CFF] transition-colors duration-200 break-all"
                       style={{ fontSize: '0.875rem', fontWeight: 500 }}
                     >
-                      {value}
+                      {item.value}
                     </a>
                   ) : (
                     <p
                       className="text-[#111827] dark:text-[#B8C1CC]"
                       style={{ fontSize: '0.875rem', fontWeight: 500 }}
                     >
-                      {value}
+                      {item.value}
                     </p>
                   )}
                 </div>

@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { motion } from 'motion/react'
 import { Github, ExternalLink, Database, Eye, Users, Globe } from 'lucide-react'
+import { trackEvent } from '../../analytics/ga'
 
 interface Project {
   icon: ComponentType<{ size?: number | string; className?: string }>
@@ -137,6 +138,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent('github_click', { project: project.title })}
           className="flex items-center gap-1.5 text-[#4B5563] dark:text-[#8B95A5] hover:text-[#111827] dark:hover:text-[#4F8CFF] transition-colors duration-200"
           style={{ fontSize: '0.85rem', fontWeight: 500 }}
         >
@@ -150,6 +152,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('project_click', { project: project.title, link_type: 'demo' })}
               className="flex items-center gap-1.5 text-[#2563EB] dark:text-[#4F8CFF] hover:text-[#1D4ED8] dark:hover:text-[#76A9FF] transition-colors duration-200"
               style={{ fontSize: '0.85rem', fontWeight: 500 }}
             >
@@ -191,6 +194,7 @@ export function Projects() {
               href="https://github.com/Oreki1107"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('github_click', { location: 'projects_header' })}
               className="flex items-center gap-1.5 text-[#4B5563] dark:text-[#8B95A5] hover:text-[#2563EB] dark:hover:text-[#4F8CFF] transition-colors duration-200 self-start sm:self-auto"
               style={{ fontSize: '0.875rem', fontWeight: 500 }}
             >
