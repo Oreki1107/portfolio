@@ -14,12 +14,12 @@ let isInitialized = false;
 
 /**
  * Initializes Google Analytics 4 asynchronously.
- * Validates the measurement ID and prevents duplicate injections.
+ * Uses the official Google tag snippet pattern and avoids duplicate script injection.
  */
 export const initializeAnalytics = (): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || isInitialized) return;
 
-  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
 
   if (!measurementId) {
     if (import.meta.env.DEV) {
@@ -28,39 +28,38 @@ export const initializeAnalytics = (): void => {
     return;
   }
 
-  if (isInitialized) return;
-
-  // Initialize dataLayer and gtag
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
+  window.gtag = window.gtag || function gtag() {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer.push(arguments);
   };
 
   window.gtag('js', new Date());
   window.gtag('config', measurementId, {
-    send_page_view: false, // We will handle page views manually
+    send_page_view: true,
   });
 
-  // Inject the Google Analytics script asynchronously
-  const script = document.createElement('script');
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-  script.async = true;
-  document.head.appendChild(script);
+  if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+    document.head.appendChild(script);
+  }
 
   isInitialized = true;
 };
 
 /**
  * Tracks a page view event.
- * Ensures the measurement ID is present before sending the event.
+ * This is kept for future SPA route changes if the app ever adds a router.
  */
 export const trackPageView = (path: string = window.location.pathname): void => {
-  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
-  if (!measurementId || !window.gtag) return;
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
+  if (!measurementId || typeof window.gtag !== 'function') return;
 
   window.gtag('event', 'page_view', {
     page_path: path,
+    page_title: document.title,
   });
 };
 
@@ -71,8 +70,8 @@ export const trackPageView = (path: string = window.location.pathname): void => 
  * @param parameters - Optional payload containing event-specific parameters
  */
 export const trackEvent = (eventName: string, parameters?: Record<string, any>): void => {
-  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
-  if (!measurementId || !window.gtag) return;
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
+  if (!measurementId || typeof window.gtag !== 'function') return;
 
   window.gtag('event', eventName, parameters);
 };

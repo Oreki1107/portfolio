@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ThemeProvider } from 'next-themes'
-import { initializeAnalytics, trackPageView } from '../analytics/ga'
+import { initializeAnalytics } from '../analytics/ga'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
@@ -13,7 +13,6 @@ import { Footer } from './components/Footer'
 export default function App() {
   useEffect(() => {
     initializeAnalytics()
-    trackPageView()
   }, [])
 
   return (
